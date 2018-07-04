@@ -1,0 +1,44 @@
+{% extends "ontologia/layouts/base.html" %}
+
+
+{% block title %}Ajouter fichier{% endblock %}
+
+
+{% block content %}
+
+
+
+
+	
+	<div class="col-md-12 panel panel-warning text-justify info" >
+		<span class = "glyphicon glyphicon-info-sign icone-info" style="font-size:15px;color:blue"></span><i></i>
+		Les PDF scannés ne sont pas bien pris en compte par la plateforme. Veuillez vous rassurer de cela pour un meilleur resultat. Pour les PDF scannés aller dans la rubrique <a href="{% url 'ontologia:fragment' %}"> Fragment de texte</a> effectuer un copier coller du contenu de votre PDF et effectuez
+	</div>
+		<div class="col-md-4 " >
+		
+		</div>
+		<div class=" col-md-4 panel panel-default panel-primary">
+
+			<div class="panel-heading">Ajouter fichier PDF ou TXT </div>
+			
+				
+				<form action="{% url 'ontologia:index' %}" enctype="multipart/form-data" method="post">
+					<div class="panel-body">
+					{% csrf_token %}
+					{{ form.as_p }}
+			
+					</div>
+					<input type="submit" name="submit" class="btn btn-primary" value="Creer Fichier">
+				</form>
+
+				
+		</div>
+
+		<div class="col-md-4 " >
+		
+		</div>
+	
+	
+
+
+{% endblock %}

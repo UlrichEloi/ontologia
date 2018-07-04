@@ -1,0 +1,160 @@
+Plant Anatomy
+= the study of plant cell and tissue structurePlant cell structure
+“Cell” - originally coined by Robert Hooke, in
+1600’s.
+Cell theory:
+1) All life made of cells
+2) Cells arise from pre-existing cells
+3) Cells units of metabolism
+4) Cells contain complete DNA, hereditary
+substance.Cell structureErgastic substances
+= by-products of metabolism
+amyloplasts - starch grains
+= polymer of alpha-glucose2 forms of
+glucoseErgastic substances
+chromoplasts - pigmented bodies, composed of
+carotenoids (e.g., carotene); cause red/orange
+coloration.carotene
+when hydrolysed, yields two vitamin A
+molecules:
+carotene ---> vitamin A + vitamin A
+function in plants is pigmentation, howevercarotene
+2 vitamin A
++ 2 H2OErgastic substances
+crystals - calcium oxalate (e.g., raphides/druses) or silica
+- waste/metabolic products or protective
+(deter herbivory)
+raphides druseErgastic substances
+aleurone grains - protein (storage)
+tannins - phenol derivatives (deter herbivory,
+deter infection)
+fats, oils, waxes - tri-/di-glyerides (storage,
+secretion)Cell structure
+Cell wall
+Primary (1°) cell wall
+Formed during growth/expansion of cells
+Made up mainly of cellulose
+= polymer of beta-glucose units
+Plasmodesmata
+Holes in 1° cell wall, allow for cell to cell
+communicationcell wall:
+cellulosic
+plasmodesmatacellulose:
+beta form
+of glucoseCellulosic cell wall
+made of cellulose microfibrilsCell structure
+Cell wall
+Secondary (2°) cell wall
+Formed after growth/expansion of cells,
+inside original primary cell wall
+Made up mainly of lignin
+= polymer of phenolic units
+hard subtance
+Pits - holes in secondary cell walllignin - secondary cell wallSecretory cells
+laticifers - cells that secrete latex,
+containing isoprenes (e.g., rubber)
+glandular trichomes, oil ducts -
+secrete oilsPlant growth
+Meristems - actively growing regions of plant
+Primary meristems
+Root apical meristems
+Shoot apical meristems
+Meristems
+- cell division
+- cell elongation
+- cell differentiationroot apical
+meristemSHOOT
+leaf primordium
+apical
+meristemcell division
+cell elongationCell differentiation
+Results in different cell and tissue types
+Tissue = 1 or more cell types having a
+common origin or functionEpidermal cell
+- outer layer of all plant organs
+- in land plants, protected by outer cuticle
+- cuticle helps to prevent dessicationcuticle - protective layer on outside
+- helps prevent water lossparenchyma
+• - living at maturity
+• - involved in metabolic reactionsparenchyma
+nucleuscollenchyma
+• - cells living, elongate
+• - cell walls unevenly thickened,
+rich in pectins [pectin - complex polysaccaride,
+mainly of galacturonic acid units]
+• - functions in structural support
+(while stem is still elongating)collenchyma
+pectic-rich
+cell wallssclerenchyma
+- cells dead at maturity
+- thick, secondary, lignified cell walls
+- functions in structural support
+2 cell types:
+fibers - very long, thin, tapered
+sclereids - variable in shape, mostly isodiametric2° cell wall
+2° cell wall
+pits
+a) fiber b) sclereidsxylem
+• -function: conduction of water and minerals
+• -consists of:
+– parenchyma
+– fibers
+– tracheary elements (2 types: tracheids and vessels)
+actual conductive cells
+dead at maturity
+joined end to end, form pipe-like conduits
+lignified secondary cell walls with pitsvessel
+perforation platephloem
+-function: conduction of sugars
+-consists of:
+parenchyma
+fibers
+sieve elements (2 types: sieve cells or sieve tube members)
+- actual sugar-conductive cells
+- semi-live at maturity (lose nuclei, but have cytoplasm)
+- primary cell-wall only
+- have callose-lined pores (making up a sieve plate or
+sieve area), through which sugar sol. passessieve plate
+callose-lined
+pore
+sieve tube
+memberPlant organs
+root - absorptive, anchoring, storage organ
+shoot = stem + associated leaves
+stem - conductive, supportive, storage organ
+leaf - photosynthetic organ
+bud = immature shoot, gen. arising from leaf
+axile; ---> lateral branchroot cap
+root apical
+ROOT (l.s.) meristem
+1) Protective root cap
+2) Absorptive root hairsROOT (c.s.)
+3) Give rise to new roots endogenously
+(from within)Casparian Strip
+Function: forces fluids
+from outside through
+plasma membrane =
+selective absorptionSPOROPHYTIC
+SHOOTeustele
+STEM - has discrete vascular bundles (xylem & phloem)
+STEM (of Eudicot)
+-bundles in a single ringSTEM
+fiber “bundle” or “cap”
+phloem
+xylemMonocots
+stem with many scattered
+bundles (atactostele)
+vascular bundles
+ground meristemLeaf anatomystomate:
+controls
+gas
+exchange
+of CO2
+& H2O
+2
+guard cellsC3 photosynthesis:
+Normal typeC4 photosynthesis:
+PEP (C3) + CO2 --> Malic acid (C4) [Mesophyll]
+Malic acid --> CO2 + PEP (C3) [B.S.C.]Kranz anatomy (in C4 plants):
+enlarged Bundle Sheath Cells w/ large chloroplastsCAM photosynthesis: CO2 fixed at night
+(stomates open), released in day (stomates closed)

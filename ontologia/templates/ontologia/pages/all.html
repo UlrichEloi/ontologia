@@ -1,0 +1,47 @@
+{% extends "ontologia/layouts/base.html" %}
+
+
+
+{% block content %}
+
+<h1>Ontologia application : {{ fichiers|length }} fichiers</h1>
+
+
+	
+	{% for fichier in fichiers %}
+
+
+			<article class="row ">
+			    <header class="col-md-8 col-lg-8 col-sm-8 title">
+			        <a href="{% url 'ontologia:show' fichier.id %}"> {{ fichier.document }}</a>
+			    </header>
+			    
+			    <div class="col-md-4 col-lg-4 col-sm-4">
+			        <span class="font-weight-bold">Categorie predite : </span><div class="categorie" >{{ fichier.categorie }} </div>
+			    </div>
+
+			    <div class="col-md-12 col-lg-12 col-sm-12 text-justify ">
+			        <p class="content">{{ fichier.contenu|truncatechars:350 }}</p>
+			    </div>
+			    <div class="col-md-12 col-lg-12 col-sm-12">
+			    	<span>THEMATIQUES TROUVEES</span>
+			       {% for concept,raisons in fichier.concepts_as_list  %}
+					
+						<div class="concept">{{ concept }}</div>
+
+					{% endfor %}   
+			    </div>
+			</article>
+
+			{% empty %}
+				<p>Sorry, pas d'article disponible</p>
+		
+
+	{% endfor %}
+
+
+<p><a href="{% url 'ontologia:all' %}"> Tous les fichiers</a></p>
+
+
+
+{% endblock %}

@@ -1,0 +1,272 @@
+SEGMENTATION OF MALARIA PARASITES IN PERIPHERAL BLOOD SMEAR IMAGES
+Vishnu V. Makkapati
+Philips Research Asia - Bangalore
+Philips Electronics India Limited
+Bangalore - 560 045, Karnataka, India
+Email: vishnu.makkapati@philips.com
+Raghuveer M. Rao
+Department of Electrical Engineering
+Rochester Institute of Technology
+Rochester, NY 14623-5603
+Email: mrreee@rit.edu
+ABSTRACT
+Detection of malaria parasites in stained blood smears is critical for treatment of the disease. Automation of this process
+will help in reducing the time taken for diagnosis and the
+chance for human errors. However, the variability and artifacts in microscope images of blood samples pose signi?cant
+challenges for accurate detection. A scheme based on HSV
+color space that segments Red Blood Cells and parasites by
+detecting dominant hue range and by calculating optimal saturation thresholds is presented in this paper. Methods that are
+less computation-intensive than existing approaches are proposed to remove artifacts. The scheme is evaluated using images taken from Leishman-stained blood smears. Sensitivity
+and speci?city of the scheme are found to be 83% and 98%
+respectively.
+Index Terms— Segmentation, malaria diagnosis, chromatin dot detection
+1. INTRODUCTION
+Malaria is a widely prevalent disease affecting millions of
+people in various parts of the world. Microscopic observation
+of blood smears of patients is considered the gold standard of
+diagnosis. The blood smears are usually observed by a person manually and the quality of diagnosis is thus dependent
+on the level of training of the observer. Further, the time taken
+to observe a smear typically ranges between 15-20 minutes.
+Automatic processing of the blood smear images will help
+in providing fast and consistent diagnosis. This paper deals
+with results of investigation into the development of image
+processing schemes for this purpose.
+There are examples of work on diagnosis of malaria from
+blood smear images in the literature. The method in [1]
+transforms the images to match the characteristics of a reference color image. A Bayesian pixel classi?er is used to
+mark stained pixels and features are extracted from them.
+A distance weighted K-nearest neighbor classi?er is trained
+with them to classify the pixels as parasite and non-parasite.
+The method proposed in [2] attempts to mimic a human
+technician. It uses morphological and threshold selection
+(a) Ring (b) Trophozoite (c) Schizont (d) Gametocyte
+Fig. 1. P. falciparum: Stages found in blood [4]
+techniques to identify (red blood cells) RBCs and parasites.
+Image features based on color, texture and geometry of RBCs
+and parasites are generated. These are presented to a twostage tree classi?er using back-propagation feed-forward
+neural networks for species classi?cation. The scheme discussed in [3] is based on a multi-stage estimation process
+with minimal prior knowledge starting from a representation
+of RBCs. It compensates for imaging variability by using a
+correction process on the intensity component in HSI space.
+An elliptic template is designed and used to extract RBCs
+from an image.
+In this paper we present techniques to segment parasites
+in stained images. The scheme is based on segmentation of
+RBCs and parasites in HSV color space and handles the variability of the images. Distinguishing features of this work
+are: (a) Focus on segmentation/detection of chromatin dots
+for malaria diagnosis whereas earlier approaches focused on
+gross level features extracted from RBCs without looking at
+parasite components (b) Incorporation of accuracy enhancing features such as geometric distance measurement for false
+positive reduction (c) Handling of image variability without
+need of normalizing with respect to a standard (d) Adaptation of parameters to a given image without need to train and
+(e) Use of Leishman-stained images which are widely used in
+malaria infested rural areas of India.
+2. BACKGROUND
+P. falciparum, P. vivax, P. ovale, and P. malariae (P. for plasmodium) are the four species of malaria that infect human
+978-1-4244-2354-5/09/$25.00 ©2009 IEEE 1361 ICASSP 2009Fig. 2. Hue scale [5]
+Table 1. Hue angle and color type
+Hue Angle Color Type
+0o red
+60o yellow
+120o green
+180o cyan
+240o blue
+300o magenta
+beings. The parasite appears in four stages in blood - ring,
+trophozoite, schizont, and gametocyte. These stages are identi?ed based on the appearance of cytoplasm and chromatin
+dots. They take different forms depending on the species and
+stage of the parasite (Fig. 1). The chromatin dots are the dotted structures seen in all four sub?gures. They are the DNA
+complex of the parasite. A lot of them are seen in the schizont
+and gametocyte stages while one or two are seen in the ring
+stage. The purplish material (including the rings in Fig. 1(a))
+is the cytoplasm within the parasite.
+The malaria parasites infect RBCs and hence are usually
+located inside them. Pathologists use color as a cue to identify
+RBCs and parasites in stained samples viewed with a microscope. However, segmenting RBCs and parasites in an image
+is not a trivial task. This is because of the fact that the colors
+of the background, RBCs and parasites vary depending on the
+pH of the buffer used for smear preparation as shown in Fig.
+1. Further, the presence of artifacts (objects other than RBCs
+and parasites) complicates the segmentation process.
+3. PROPOSED SCHEME
+We segment the RBCs and then check if a parasite(s) has infected them. We develop a color-based method to segment
+parasites and RBCs. Chromatin dots are more easily distinguished from the RBC than cytoplasm which is a delicate
+structure that shows great variability. Hence our approach
+focuses on isolating chromatin dots in the image. The input images are obtained in RGB color space. Since the RGB
+color space is not intuitive for processing, we choose the HSV
+color space which offers a convenient representation where
+hue, saturation, and value indicate the quality by which we
+distinguish one color family from another, a strong color from
+a weak one, and a light color from a dark one respectively [5].
+Figure 2 and Table 1 show the hue angles and the corresponding color types.
+We choose appropriate ranges of hue and saturation to
+segment RBCs and chromatin dots. However, the same hue
+(a) RBCs (b) Chromatin dots
+Fig. 3. Schematic illustrating the calculation of optimal
+thresholds to segment RBCs and chromatin dots from saturation histogram.
+and saturation values cannot be used for all images due to
+color variability (Fig. 1) and hence have to be adaptively chosen for each input image. One approach to overcome color
+variability would be to transform each input image to a nominal reference color distribution [1]. However, there is enough
+variability between the objects of interest (RBCs and parasites) and the background that even with such a transformation, there is no assurance that such objects occupy well de-
+?ned color ranges in the ?nal image. We therefore propose an
+approach where we dynamically determine the background
+and process the remaining pixels to identify the objects.
+The dominant color in these images is representative of
+the background (i.e., region excluding RBCs and parasites).
+We divide the entire hue range of 360o into six segments
+where each segment has a width of 60o and is centered around
+a color type as given in Table 1. Then we determine the dominant color type p by ?nding the number of pixels Ni that fall
+within each hue segment i, 1 = i = 6 and identifying the
+peak value Np (i.e. p is associated with the mode of the hue
+distribution). The pixels corresponding to the remaining segments i, 1 = i = 6 and i = p are segmented to identify RBCs
+and chromatin dots by using an appropriate saturation threshold. However, if the dominant color type exceeds a certain l
+percentage of the total pixels (i.e.,  6 iN=1p Ni > l%), then only
+the saturation component is used for segmentation.
+Optimal saturation thresholds to segment RBCs and chromatin dots have to be identi?ed. We use the method proposed
+in [6] to select an optimal saturation threshold to segment
+RBCs. The method was found to give an optimal threshold
+for bimodal distributions but did not work well for unimodal
+distributions such as the one shown in Fig. 3(a). To overcome
+this problem we use the fact that RBCs typically occupy a certain percentage of the area of an image. We count the number
+of pixels Nrc and Nlc respectively that exceed and fall below
+the speci?ed threshold T c (Fig. 3(a)). If N Nrc c
+l
+> n% for some
+n (our measurements with the images show this to 10%), then
+the threshold T c is valid. Otherwise we derive the threshold
+by applying Otsu’s method to the pixels that fall below this
+threshold.The process is repeated until convergence.
+1362(a) Blue background (b) Red background (c) Red background
+Fig. 5. Sample images of P. Falciparum
+(a) (b)
+Fig. 4. (a) Schematic showing the containment of chromatin
+dot in RBC. The bold dots indicate the centroids of RBC and
+chromatin dot. d, rc and rp denote the distance between centroids, radius of RBC and radius of chromatin dot respectively. (b) Schematic showing the false containment of chromatin dot in RBC.
+The saturation values of the chromatin dots fall in the outlier zone of the histogram. To segment chromatin dots we
+make use of the fact that parasite pixels occupy at most a certain fraction of the RBC pixels (considering the maximum
+parasite density possible). Figure 3(b) shows a schematic for
+computing the threshold to segment chromatin dots. Only
+those pixels that belong to the RBCs are processed. If N Nrp p
+l
+<
+m% for some m (typically 2%), then the threshold T p is considered valid. Otherwise we apply the threshold selection
+method again to the pixels that fall above this threshold. The
+process is again repeated until convergence.
+The segmented images are often found to contain noise
+and the RBCs are found to have holes (vacuoles) inside. We
+overcome these problems to a certain extent by using morphological ?ltering with a circular structuring element of radius
+3. The ?ltered images are labeled to assign unique numbers
+to chromatin dots and RBCs. The platelets typically pass the
+thresholds set for RBC segmentation. However, the area of
+a platelet is much smaller compared to that of an RBC and
+an area threshold is used to eliminate them. Further, the artifacts and nuclei of White Blood Cells (WBCs) tend to pass the
+thresholds for chromatin dots. The areas of nuclei of WBCs
+are larger as compared to that of a chromatin dot and hence
+an appropriate threshold is used to remove them.
+To remove the other artifacts, we use the fact that parasites
+0 0.2 0.4 0.6 0.8 1
+0
+0.5
+1
+1.5
+2
+x 104
+(a) Hue
+0 0.2 0.4 0.6 0.8 1
+0
+0.5
+1
+1.5
+2
+2.5
+3
+3.5
+4
+4.5
+x 104
+(b) Saturation
+Fig. 6. Hue and saturation histograms for image in Fig. 5(a)
+are usually located in RBCs. To detect whether a chromatin
+dot is within an RBC we propose a two-step method. We compute the centroids for each RBC i and each chromatin dot j
+denoted by (xi c, yci) and (xj p, ypj) respectively. We then determine the radius of the Minimum Bounding Circle (MBC) of
+each RBC (rci) and each chromatin dot (rpj). A chromatin dot
+j is present within RBC i if
+(xi c - xj p)2 + (yci - ypj)2 = rci + rpj (1)
+This is schematically represented in Fig. 4(a). However, this
+scheme may not yield appropriate results if the RBCs overlap each other as illustrated in Fig. 4(b). To overcome this
+problem, we check if the number of overlapping chromatin
+dot and RBC pixels exceed a certain percentage (say k%) of
+the area of a chromatin dot. Classi?cation as chromatin dot is
+declared to be valid if this condition is satis?ed.
+4. EXPERIMENTAL RESULTS
+We have evaluated the performance of our scheme using several images taken from Leishman-stained blood smears . The
+resolution of the images considered is 1391 × 1040 and with
+8 bits per color component. The images are median ?ltered
+using a window of size 3 × 3 to remove noise.
+Figure 5 shows three of the images used in our experiments. The hue histogram for the image in Fig. 5(a) is shown
+in Fig. 6(a). The number of pixels in each hue segment for
+the images in Fig. 5 are given in Table 2. The algorithm identi?es blue as the background color for the image in Fig. 5(a)
+and red for the images in Fig. 5(b) and Fig. 5(c) respectively.
+These are consistent with visual observation as well.
+The saturation histogram for the image in Fig. 5(a) is
+shown in Fig. 6(b). For this image the method proposed
+in [6] has resulted in an incorrect threshold value of 0.3255
+1363(a) (b) (c)
+Fig. 8. Segmented images for the images in Fig. 5 where blue, red and green colors indicate the pixels corresponding to
+background, RBCs and chromatin dots respectively.
+(a) RBCs (b) Chromatin dots
+Fig. 7. Initial segmentation of the image in Fig. 5(a)
+Table 2. No. of pixels in each hue segment
+Color Type Fig. 5(a) Fig. 5(b) Fig. 5(c)
+red 39224 1326997 1351771
+yellow 565 104424 35036
+green 1356 292 51
+cyan 253361 122 28
+blue 717312 108 2232
+magenta 435862 15737 58562
+to segment RBCs. The adaptive threshold selection scheme
+(Fig. 3(a)) has resulted in a threshold value of 0.0863 which
+is found to be the right choice. Repeated experiments have
+revealed that a saturation threshold value of 0.4 is optimal to
+segment chromatin dots (Fig. 3(b)). The RBC and chromatin
+dot images obtained after initial hue and saturation segmentation are shown in Fig. 7(a) and Fig. 7(b). However, these images contain noise and many artifacts which are eliminated to
+a great extent by using the methods presented in Sec. 3. The
+?nal segmented images are shown in Fig. 8. Evaluation of the
+scheme with 55 annotated images showed that the sensitivity
+and speci?city of the scheme are 83% and 98% respectively.
+5. CONCLUSIONS
+A method to segment RBCs and chromatin dots in images
+taken from Lieshman-stained blood smears is presented. The
+method operates in HSV space and is dynamic in the sense
+that relevant thresholds are determined from the statistics of
+the given image rather than keeping them ?xed for all images. The performance of the scheme was evaluated using
+images with color variability. The background in an image
+is determined using the dominant hue range. The remaining
+pixels are processed to segment RBCs and chromatin dots.
+Schemes are proposed to determine optimal saturation thresholds to segment RBCs and chromatin dots that are robust with
+respect to the color variability encountered. The work illustrates the potential of color image processing techniques in
+providing diagnostic solutions to serious infections afbicting
+a signi?cant portion of the world’s human population and are
+being pursued for the development of low cost portable testing kits.
+6. ACKNOWLEDGEMENTS
+The authors would like to thank clinical partners Prof. Raviraj
+V. Acharya and Dr. Chethan Manohar of Kasturba Medical
+College, Manipal University, India for providing the data.
+7. REFERENCES
+[1] F. B. Tek, A. G. Dempster, and I. Kale, “Malaria parasite
+detection in peripheral blood images,” in Proc. British
+Machine Vision Conference, Edinburgh, September 2006.
+[2] N.E. Ross, C.J. Pritchard, D.M. Rubin, and A.G. Dus,
+“Automated image processing method for the diagnosis
+and classi?cation of malaria on thin blood smears,” Medical and Biological Engineering and Computing, vol. 44,
+no. 5, pp. 427 – 436, May 2006.
+[3] S. Halim, T. Bretschneider, Y. Li, P. Preiser, and C. Kuss,
+“Estimating malaria parasitaemia from blood smear images,” in Proc. ICCARV. IEEE, 2006, pp. 648 – 653.
+[4] “CDC DPDx - malaria image library,”
+http://www.dpd.cdc.gov/DPDx/HTML/ImageLibrary/Ma
+laria il.htm.
+[5] A.H. Munsell, A Color Notation, Munsell Color Corporation, Baltimore, MD, 1946.
+[6] N. Otsu, “A threshold selection method from gray-level
+histograms,” IEEE Trans. Syst., Man, Cybern., vol. 9, no.
+1, pp. 62 – 66, 1979.
+1364

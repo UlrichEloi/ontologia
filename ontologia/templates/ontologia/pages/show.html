@@ -1,0 +1,52 @@
+{% extends "ontologia/layouts/base.html" %}
+
+{% block content %}
+	
+	<article>
+		<h1 class="title"> {{ fichier.document }}</h1>
+		<h3>Categorie predite : {{ fichier.categorie }}</h3>
+		
+		<h3>Extrait du texte</h3>
+		<textarea readonly class="content">{{ fichier.contenu }}</textarea>
+
+		<h2>THEMATIQUES</h2>
+		{% for concept,raisons in fichier.concepts_as_list  %}
+				
+			<div class="concept">{{ concept }}</div>
+
+		{% endfor %}
+	</article>
+	
+
+	<h2>DETAILS</h2>
+
+		<table>
+			<tr><td>CONCEPTS TROUVES</td><td>ELEMENT DU TEXTE</td></tr>
+
+			{% for concept,raison in fichier.concepts_as_list %}
+
+				<tr><td>{{ concept }}</td><td>{{ raison }}</td></tr>
+				
+				{% empty %}
+				<p>Sorry, pas de thematiques trouvées</p>
+
+			{% endfor %}
+		
+		</table>
+
+	<h2>ETIQUETTES</h2>
+
+		{% for etiquette in etiquettes %}
+
+			<div class="concept">{{ etiquette }}</div>
+		
+		{% empty %}
+		<p>Desolé, pas d'etiquettes trouvées</p>
+
+		{% endfor %}
+		
+		
+
+	<p><a href="{% url 'ontologia:all' %}"> Tous les fichiers</a></p>
+
+{% endblock %}

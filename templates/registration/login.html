@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<title></title>
+</head>
+<body>
+	<div class="container">
+		<div class="col-sm-6">
+			<div class="panel panel-default">
+				
+				<div class="panel-heading"> 
+					
+					<div class="panel-body">
+						
+							<form method="post">
+								{% csrf_token  %}
+								
+								<label>username</label><input type="texte" name="username"/><br>
+								<label>password</label><input type="texte" name="password"/><br>
+
+								<input type="submit" value="login" name="login"/>
+
+							</form>
+
+					</div>
+
+				</div>
+
+
+			</div>>
+				
+			
+		</div>
+	</div>
+
+</body>
+</html>
