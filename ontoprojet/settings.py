@@ -77,11 +77,11 @@ WSGI_APPLICATION = 'ontoprojet.wsgi.application'
 
 DATABASES = {
    'default': {
-        'ENGINE': 'django.db.backends.mysql', 
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ontology_db',
         'USER': 'root',
         'PASSWORD': 'Ulrich-18@',
-        'HOST': '127.0.0.1',                     
+        'HOST': '127.0.0.1',
         'PORT': '3306',
     }
 
@@ -124,6 +124,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATIC_URL = '/static/'
 
