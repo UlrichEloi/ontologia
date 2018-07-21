@@ -125,16 +125,32 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-STATIC_URL = '/static/'
 
-STATICFILES_DIRS = (
+import dj_database_url
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
 
-    os.path.join(BASE_DIR, 'ontologia/templates/ontologia/static'),
 
-)
+STATIC_URL = '/static'
+STATICFILES_DIRS = [ 
+    os.path.join(BASE_DIR, "static"),
+]
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
-MEDIA_URL = "/ontologia/media/"
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'ontologia/media/ontologia')
+
+
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# STATICFILES_DIRS = (
+
+#     os.path.join(BASE_DIR, 'ontologia/templates/ontologia/static'),
+
+# )
+
+# MEDIA_URL = "/ontologia/media/"
+
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'ontologia/media/ontologia')
+
