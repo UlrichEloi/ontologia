@@ -25,7 +25,7 @@ SECRET_KEY = ')gf8h2hoi2u_**a5lihx5(pl#8xl-f()pu(#1_u(_&f%o_oguy'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ontologia.herokuapp.com']
 #192.168.43.229
 #'192.168.*','10.*','172.16.*','172.31.*'
 
