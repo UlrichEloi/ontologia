@@ -47,35 +47,35 @@ from sklearn.metrics.pairwise import cosine_similarity
 import os
 
 class Ontology:
-    
+
     """
     #données brutes de(s) l'ontologie(s) representant la variable X
     data
-    
+
     #concepts de l'ontologie
     concepts
-    
+
     #code categories des données brutes de(s) l'ontologie(s) representant la variable y
     target
-    
+
     #nom des categories des données brutes de(s) l'ontologie(s) representant la variable y
     target_names
-    
+
     #contient les limites de chaque categories presente dans les donnees globales
     ind_cat
-    
+
     #pattern utilisé pour separer 2 elements
     pattern
-    
+
     #donnees de l'ontologie pretraitées et utilisable dans le modele
     corpus
-    
+
     #données du fichier pdf ou du texte passé en entrée
     input_data
-    
-    #version pretraitée du fichier pdf ou du texte passé en entrée 
+
+    #version pretraitée du fichier pdf ou du texte passé en entrée
     new_input_data
-    
+
     #variable pour entrainer le model et effectuer la classification
     X_train_termcounts
     shape = ""
@@ -84,60 +84,60 @@ class Ontology:
     X_test = ""
     y_train = ""
     y_test = ""
-    
+
     #definit le pourcentage de données a utilser pour tester le modele
     test_size = 0.3
-    
+
     #matrice de confusion pour evaluer le mmodele
     cm = ""
-    
+
     #classificateur
     classifier = ""
-    
+
     #prediction realisé sur le test set dans le but d'evaluer le modele
     y_pred = ""
-    
-    
+
+
     tfidf_transformer = ""
     vectorizer = ""
-    
+
     #variable pour la prediction
     X_input_termcounts_inp = ""
-        
+
     X_input_tfidf_inp = ""
-    
+
     #categories predites
     predicted_categories = ""
-    
+
     #nombre d'ontologies chargées
     number_ontologies = 0
-    
+
     #concepts trouvés dans le  texte d'entrée (pdf ou phrase)
     thematic = []
     thematics = []
-    
+
     #categories des concepts trouvés
     thematics_cat = []
-    
+
     #nbre de mots du ngram
     self.ngram_nbre_word = 10
-    
+
     self.obo = ""
 
     """
-    
+
     ontologies = {
         'malaria':os.path.join(sys.path[0], "ontologia\ontologies\idomal.owl.xml"),
         'plant':os.path.join(sys.path[0], "ontologia\ontologies\po.owl.xml"),
-        'diseases':os.path.join(sys.path[0], "ontologia\ontologies\doid.owl.xml"),
+        #'diseases':os.path.join(sys.path[0], "ontologia\ontologies\doid.owl.xml"),
     }
-   
+
 
     nbre_instance = 0
 
     #constructeur de la classe
     def __init__(self):
-        
+
        # Ontology.nbre_instance += 1
 
         #if (Ontology.nbre_instance == 1):
@@ -149,7 +149,7 @@ class Ontology:
         self.pattern= "~~~"
         self.pattern2= "%¨£"
         self.corpus = []
-        self.input_data = [] 
+        self.input_data = []
         self.new_input_data = []
         self.X_train_termcounts = ""
         self.shape = ""
@@ -163,7 +163,7 @@ class Ontology:
         self.y_pred = ""
         self.tfidf_transformer = ""
         self.vectorizer = ""
-        self.X_input_termcounts_inp = ""     
+        self.X_input_termcounts_inp = ""
         self.X_input_tfidf_inp = ""
         self.predicted_categories = ""
         self.number_ontologies = 0
@@ -174,17 +174,17 @@ class Ontology:
         self.ngram_nbre_word = 6
         self.ontology = []
         self.obo = ""
-        
-    
+
+
     ########################### methodes d'instance ############################
-    
-    
+
+
     #permet d'enlever les mots entre parentheses d'une chaine de charactere
     def enlv(self,s):
         replaced = re.sub('(\((.*?)\))', '', s)
         return replaced
-    
-    
+
+
     #fonction qui permet de charger les ontologies
     def load_ontologies(self, ontology_path=os.path.dirname('/ontologia/ontologies')):
         global number_ontologies
@@ -199,14 +199,14 @@ class Ontology:
         self.cleaning_corpus()
         self.train_and_classify()
 
-            
-        
-        
+
+
+
     #fonction qui permet davoir les classes d'une ontologie
     def get_classes_ontology(self,ontology,pattern= "~~~"):
-                
+
         index = self.target.size
-        
+
         for cl in list(ontology.classes()):
             #c = self.enlv("".join(cl.label)) + self.pattern + self.enlv("".join(cl.IAO_0000115)) + self.pattern + self.enlv("".join(cl.comment)) + self.pattern + self.enlv("".join(cl.hasNarrowSynonym)) + self.pattern + self.enlv("".join(cl.hasRelatedSynonym)) + self.pattern + self.enlv("".join(cl.hasExactSynonym)) +  self.pattern + self.enlv("".join(cl.hasBroadSynonym))
             c, c_obj = self.recupConcept(cl)
@@ -222,14 +222,14 @@ class Ontology:
 
     # pretraiter les données de l'ontologie
     def cleaning_corpus(self):
-        
+
         i = 0
         size = len(self.data)
         while (i < size):
             tab_elt = self.data[i].split(self.pattern)
             chaine = ""
             for elt in tab_elt:
-                # enlever les nombres isolés(non liées à un mot ou lettre)  
+                # enlever les nombres isolés(non liées à un mot ou lettre)
                 review = re.sub(r"(\b|\s+\-?|^\-?)(\d+|\d*\.\d+)\b","",elt)
                 review = review.lower()
                 review = review.split()
@@ -242,39 +242,39 @@ class Ontology:
                     else:
                         chaine = chaine + self.pattern + review
             if (len(chaine.strip())!=0):
-                self.corpus.append(chaine)   
+                self.corpus.append(chaine)
             i = i+1
 
     #entrainer le modele et effectuer la classification des données
     def train_and_classify(self):
-        
+
         # Feature extraction
         self.vectorizer = CountVectorizer()
         self.X_train_termcounts = self.vectorizer.fit_transform(self.corpus)
         self.shape = self.X_train_termcounts.shape
-    
+
         # Training a classifier
-    
+
         # tf-idf transformer
         self.tfidf_transformer = TfidfTransformer()
         self.X_train_tfidf = self.tfidf_transformer.fit_transform(self.X_train_termcounts)
-    
+
         # split the dataset into test and train set
         self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(self.X_train_tfidf.todense(), self.target, test_size = self.test_size, random_state = 0)
-    
+
         # Multinomial Naive Bayes classifier
         self.classifier = MultinomialNB().fit(self.X_train, self.y_train)
-        
+
         # Predicting the Test set results
         self.y_pred = self.classifier.predict(self.X_test)
-        
+
         # Making the Confusion Matrix
         self.cm = confusion_matrix(self.y_test, self.y_pred)
 
 
     # permet de lire fichier pdf passé en entrée
     def read_input_file(self,filepath):
-        #pdf2txt.main(['', '-o', 'test.txt', filepath]) 
+        #pdf2txt.main(['', '-o', 'test.txt', filepath])
         texte = pdf2txt.convert_pdf_to_txt(filepath)
         # with open('test.txt', 'r', encoding="utf8") as mon_fichier:
         #     texte = mon_fichier.read()
@@ -285,9 +285,9 @@ class Ontology:
         self.input_data.clear()
 
         self.input_data.append(texte)
-            
+
         self.clean_input()
-    
+
     # permet de lire fichier txt passé en entrée
     def read_input_file_txt(self,filepath):
         with open(filepath, 'r') as mon_fichier:
@@ -299,7 +299,7 @@ class Ontology:
         self.input_data.clear()
 
         self.input_data.append(texte)
-            
+
         self.clean_input()
 
     # permet de lire le texte passé en entrée
@@ -312,7 +312,7 @@ class Ontology:
 
         self.input_data.append(text)
         self.clean_input()
-    
+
     # permet de pretraiter les données entrées
     def clean_input(self):
         size = len(self.input_data)
@@ -337,19 +337,19 @@ class Ontology:
 
     #predire les categories
     def predict(self):
-        
+
         self.X_input_termcounts_inp = self.vectorizer.transform(self.new_input_data)
-        
+
         self.X_input_tfidf_inp = self.tfidf_transformer.transform(self.X_input_termcounts_inp)
-    
+
         # Predict the output categories
         self.predicted_categories = self.classifier.predict(self.X_input_tfidf_inp)
-        
+
         #chercher tous les concepts
         self.find_concept()
-  
-    
-    # permet de generer le modele ngram  
+
+
+    # permet de generer le modele ngram
     def words_to_ngrams(self, words, n, sep=" "):
         chaine = ""
         for x in range(1,n+1):
@@ -357,7 +357,7 @@ class Ontology:
                 if (chaine ==""):
                     chaine = sep.join(words[i:i+x])
                 else:
-                    chaine = chaine+ self.pattern + sep.join(words[i:i+x]) 
+                    chaine = chaine+ self.pattern + sep.join(words[i:i+x])
         return chaine.split(self.pattern)
 
 
@@ -367,19 +367,19 @@ class Ontology:
         self.thematics.clear()
         self.thematic.clear()
         self.thematics_cat.clear()
-    
+
         for sentence, category in zip(self.new_input_data, self.predicted_categories):
             input_ngram = self.words_to_ngrams(sentence.split(' '), self.ngram_nbre_word, sep=" ")
-            
+
             counter_cat = 0
-            
+
             pos = category
             indice = self.ind_cat[pos]
             if (pos == 0):
                 preced = 0
             else:
                 preced = self.ind_cat[pos-1]
-            
+
             cat_corpus = self.corpus[preced:indice]
             kk = preced
             for ca in input_ngram:
@@ -391,9 +391,9 @@ class Ontology:
                             counter_cat += 1
                     kk = kk + 1
                 kk = preced
-            
+
             self.thematics_cat.append(counter_cat)
-        
+
  ###############################################################################
 
 
@@ -414,20 +414,20 @@ class Ontology:
                 else:
                     val += self.enlv(el)
         return val
-   
-   
+
+
  # rechercher dans une liste de dictionnaires
     def search_concept(self, key, value, list_of_dictionaries):
         return [element for element in list_of_dictionaries if element[key] == value]
-              
-    
+
+
     # recuperer les elements d'un concept
     def recupConcept(self,concept):
         val = ""
         synonyms = []
-        
+
         obj = {'id':'','label':'','definition':'','comment':'','synonyms':'','ancestors':'','descendants':''}
-        
+
         if (len(self.recupVal(concept.label)) > 0):
             if (len(val.strip()) > 0):
                 val += self.pattern + self.recupVal(concept.label)
@@ -436,7 +436,7 @@ class Ontology:
                     val += self.recupVal(concept.label)
             obj["id"] = self.recupVal(concept.id)
             obj["label"] = self.recupVal(concept.label)
-            
+
             if (len(self.recupVal(concept.IAO_0000115)) > 0):
                 if (len(val.strip()) > 0):
                     val += self.pattern + self.recupVal(concept.IAO_0000115)
@@ -444,7 +444,7 @@ class Ontology:
                     if (len(val.strip()) == 0):
                         val += self.recupVal(concept.IAO_0000115)
                 obj["definition"] = self.recupVal(concept.IAO_0000115)
-    
+
             if (len(self.recupVal(concept.comment)) > 0):
                 if (len(val.strip()) > 0):
                     val += self.pattern + self.recupVal(concept.comment)
@@ -452,31 +452,31 @@ class Ontology:
                     if (len(val.strip()) == 0):
                         val += self.recupVal(concept.comment)
                 obj["comment"] = self.recupVal(concept.comment)
-                
+
             #synonyms
-    
+
             if (len(self.recupVal(concept.hasNarrowSynonym)) > 0):
                 if (len(val.strip()) > 0):
                     val += self.pattern + self.recupVal(concept.hasNarrowSynonym)
-                    
+
                     syns = self.recupVal(concept.hasNarrowSynonym)
                     syns = syns.split(self.pattern2)
                     for syn in syns:
                         synonyms.append(syn)
-                    
+
                 else:
                     if (len(val.strip()) == 0):
                         val += self.recupVal(concept.hasNarrowSynonym)
-                        
+
                         syns = self.recupVal(concept.hasNarrowSynonym)
                         syns = syns.split(self.pattern2)
                         for syn in syns:
                             synonyms.append(syn)
-    
+
             if (len(self.recupVal(concept.hasRelatedSynonym)) > 0):
                 if (len(val.strip()) > 0):
                     val += self.pattern + self.recupVal(concept.hasRelatedSynonym)
-                    
+
                     syns = self.recupVal(concept.hasRelatedSynonym)
                     syns = syns.split(self.pattern2)
                     for syn in syns:
@@ -485,58 +485,58 @@ class Ontology:
                 else:
                     if (len(val.strip()) == 0):
                         val += self.recupVal(concept.hasRelatedSynonym)
-                        
+
                         syns = self.recupVal(concept.hasRelatedSynonym)
                         syns = syns.split(self.pattern2)
                         for syn in syns:
                             synonyms.append(syn)
-    
+
             if (len(self.recupVal(concept.hasExactSynonym)) > 0):
                 if (len(val.strip()) > 0):
                     val += self.pattern + self.recupVal(concept.hasExactSynonym)
-                    
+
                     syns = self.recupVal(concept.hasExactSynonym)
                     syns = syns.split(self.pattern2)
                     for syn in syns:
                         synonyms.append(syn)
-                    
+
                 else:
                     if (len(val.strip()) == 0):
                         val += self.recupVal(concept.hasExactSynonym)
-                        
+
                         syns = self.recupVal(concept.hasExactSynonym)
                         syns = syns.split(self.pattern2)
                         for syn in syns:
                             synonyms.append(syn)
-                
-    
+
+
             if (len(self.recupVal(concept.hasBroadSynonym)) > 0):
                 if (len(val.strip()) > 0):
                     val += self.pattern + self.recupVal(concept.hasBroadSynonym)
-                    
+
                     syns = self.recupVal(concept.hasBroadSynonym)
                     syns = syns.split(self.pattern2)
                     for syn in syns:
                         synonyms.append(syn)
-                            
+
                 else:
                     if (len(val.strip()) == 0):
                         val += self.recupVal(concept.hasBroadSynonym)
-                        
+
                         syns = self.recupVal(concept.hasBroadSynonym)
                         syns = syns.split(self.pattern2)
                         for syn in syns:
                             synonyms.append(syn)
-                
-                
+
+
             obj["synonyms"] = synonyms
-            
+
             #recuperer les ancetres du concept
             obj["ancestors"] = self.recupAncetres(concept)
-            
+
             #recuperer les descendants du concept
             obj["descendants"] = self.recupDescendants(concept)
-            
+
         return val,obj
 
 
@@ -553,36 +553,36 @@ class Ontology:
 
             for el in synonyms:
                     etiquette.append(el)
-        
+
         return etiquette
- 
+
   #generer etiquette des parents d'un concept
     def genererEtiquetteParent(self, key, value):
         etiquette = []
         lst_concept = self.search_concept(key, value, self.ontology)
         for concept in lst_concept:
-            
+
             ancetres = concept["ancestors"]
             for ancetre in ancetres:
                 etiq_ancetre = self.genererEtiquetteConcept("id",ancetre)
 
                 for el in etiq_ancetre:
                     etiquette.append(el)
-            
+
             descendants = concept["descendants"]
             for descendant in descendants:
                 etiq_descendant = self.genererEtiquetteConcept("id",descendant)
 
                 for el in etiq_descendant:
                     etiquette.append(el)
-        
+
         return etiquette
- 
- 
+
+
     def genererEtiquette(self, list_thematique):
-        
+
         etiquette = []
-        
+
         for thematique in list_thematique:
             et1 = self.genererEtiquetteConcept("label", thematique)
             et2 = self.genererEtiquetteParent("label", thematique)
@@ -592,12 +592,12 @@ class Ontology:
 
             for el2 in et2:
                 etiquette.append(el2)
-        
+
         return etiquette
-        
-        
- 
- 
+
+
+
+
     #recuperer ancetres d'un concept
     def recupAncetres(self,concept):
         ancetres = concept.ancestors()
@@ -606,19 +606,19 @@ class Ontology:
         label = label.replace("[",'')
         label = label.replace("]",'')
         label = label.replace("'",'')
-     
+
         for ancetre in ancetres:
             ancetre = str(ancetre)
             ancetre = ancetre[4:]
             if ("_" in ancetre):
                 ancetre = ancetre.replace("_",":")
-                if (ancetre != label):         
+                if (ancetre != label):
                     anc.append(ancetre)
-            
-        return anc  
-        
-        
-    #recuperer descendant d'un concept         
+
+        return anc
+
+
+    #recuperer descendant d'un concept
     def recupDescendants(self,concept):
         descendants = concept.descendants()
         desc = []
@@ -626,55 +626,55 @@ class Ontology:
         label = label.replace("[",'')
         label = label.replace("]",'')
         label = label.replace("'",'')
-        
+
         for descendant in descendants:
             descendant = str(descendant)
             descendant = descendant[4:]
-            if ("_" in descendant):                
+            if ("_" in descendant):
                 descendant = descendant.replace("_",":")
-                if (descendant != label):         
+                if (descendant != label):
                     desc.append(descendant)
-            
-        return desc  
-    
-    
-    
+
+        return desc
+
+
+
     def rechercherDocumentVoisin(self,liste_documents, document):
-        
+
         similarity = []
         list_doc_sim = []
-        
+
         if (document in liste_documents):
             index = liste_documents.index(document)
-            
+
             tfidf_vectorizer = TfidfVectorizer()
             tfidf_matrix = tfidf_vectorizer.fit_transform(liste_documents)
             xxx = cosine_similarity(tfidf_matrix[index:index+1], tfidf_matrix)
             for xx in xxx:
                 for x in xx:
                     similarity.append(x)
-            
+
             list_doc_sim = self.takeDocumentVoisin(liste_documents, similarity)
-            
+
             similarity.sort(reverse=True)
-            
+
         return similarity, list_doc_sim
-    
-    
-    
+
+
+
     def takeDocumentVoisin(self,liste_documents, similarity):
-        
+
         l_d = liste_documents.copy()
         sim = similarity.copy()
         list_doc_sim = []
-        
+
         while (len(sim)>0):
             ind = sim.index(max(sim))
             list_doc_sim.append(l_d[ind])
             l_d.pop(ind)
             sim.pop(ind)
-            
-            
+
+
         return list_doc_sim
 
 
@@ -683,32 +683,32 @@ class Ontology:
     #retourne la matrice de confusion du model
     def _get_confusion_matrix(self):
         return self.cm
-    
-    #retourne les thematiques 
+
+    #retourne les thematiques
     def _get_thematics(self):
         return self.thematics
-    
+
     #retourne les concepts
     def _get_concepts(self):
         return self.concepts
-    
+
     #retourne la taille des données de test
     def _get_test_size(self):
         return self.test_size
-    
+
     #modfie la taille des données de test
     def _set_test_size(self, new_test_size):
         if (new_test_size <= 1):
             self.test_size =new_test_size
-    
+
     #retourne les categories predites
     def _get_predicted_categories(self):
         return self.predicted_categories
-    
+
     #retourne le nombre d'ontologies chargées
     def _get_number_ontologies(self):
         return number_ontologies
-    
+
 
 # import sys
 # import os.path
