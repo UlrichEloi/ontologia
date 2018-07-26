@@ -129,10 +129,10 @@ class Ontology:
     ontologies = {
         'malaria':os.path.join(sys.path[0], "ontologia\ontologies\idomal.owl.xml"),
         'plant':os.path.join(sys.path[0], "ontologia\ontologies\po.owl.xml"),
-        #'diseases':os.path.join(sys.path[0], "ontologia\ontologies\doid.owl.xml"),
+        'diseases':os.path.join(sys.path[0], "ontologia\ontologies\doid.owl.xml"),
     }
 
-
+#reerr
     nbre_instance = 0
 
     #constructeur de la classe
