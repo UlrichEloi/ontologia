@@ -130,7 +130,7 @@ class Ontology:
     ontologies = {
         'ma#laria':os.path.join(sys.path[0], "ontologia\ontologies\idomal.owl.xml"),
         'plant':os.path.join(sys.path[0], "ontologia\ontologies\po.owl.xml"),
-        #'diseases':os.path.join(sys.path[0], "ontologia\ontologies\doid.owl.xml"),
+        'diseases':os.path.join(sys.path[0], "ontologia\ontologies\doid.obo"),
     }
 
 
@@ -198,7 +198,7 @@ class Ontology:
             self.target_names.append(name)
             self.number_ontologies += 1
             self.get_classes_ontology(onto)
-            #self.obo = onto.get_namespace("http://purl.obolibrary.org/obo/")
+            self.obo = onto.get_namespace("http://purl.obolibrary.org/obo/")
         self.cleaning_corpus()
         self.train_and_classify()
 
