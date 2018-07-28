@@ -9,6 +9,7 @@ Created on Tue May  8 01:50:49 2018
 
 #import ontology owl
 from owlready2 import *
+import owlready2.namespace
 
 #imports
 import numpy as np
@@ -197,7 +198,7 @@ class Ontology:
             self.target_names.append(name)
             self.number_ontologies += 1
             self.get_classes_ontology(onto)
-            self.obo = onto.get_namespace("http://purl.obolibrary.org/obo/")
+            #self.obo = onto.get_namespace("http://purl.obolibrary.org/obo/")
         self.cleaning_corpus()
         self.train_and_classify()
 
