@@ -9,7 +9,7 @@ Created on Tue May  8 01:50:49 2018
 
 #import ontology owl
 from owlready2 import *
-import owlready2.namespace
+
 
 #imports
 import numpy as np
