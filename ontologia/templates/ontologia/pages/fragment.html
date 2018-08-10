@@ -11,20 +11,20 @@
 		<div class=" col-md-6">
 
 			<div class="">Ajouter un fragment de texte</div>
-			
-				
-				<form action="{% url 'ontologia:fragment' %}" enctype="multipart/form-data" method="post">
-	
+
+
+				<form action="{% url 'ontologia:creer_extrait_texte' %}" enctype="multipart/form-data" method="post">
+
 					{% csrf_token %}
 					{{ form.as_p }}
-					
-					 	
+
+
 					<input type="submit" name="submit" value="Creer Fichier">
 				</form>
-					
-				
+
+
 		</div>
 
-		
+
 
 {% endblock %}

@@ -15,6 +15,12 @@ from .forms import FichierForm,FragmentTexteForm
 import os
 from django.conf import settings
 
+from django.contrib.auth import get_user_model
+
+#pour les graphes avec chart.js
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
 
 from ontologia.python.ontology_class import Ontology
 
@@ -27,14 +33,14 @@ o.load_ontologies()
 
 
 def all(request):
-	
+
 	fichiers = Fichier.objects.all().order_by('-id')
-	
-	
-	return render(request,"ontologia/pages/all.html",{'fichiers':fichiers})
+
+	form = FichierForm()
+	return render(request,"ontologia/pages/all.html",{'fichiers':fichiers, 'form':form})
 
 def show(request, id):
-	
+
 	fichier = get_object_or_404(Fichier, pk=id)
 
 	name = fichier.nom
@@ -51,12 +57,12 @@ def show(request, id):
 	# 	fichier = Fichier.objects.get(pk=id)
 	# except Fichier.DoesNotExist:
 	# 	raise Http404('desolé, fichier #{} introuvable'.format(id))
-	
+
 	return render(request, 'ontologia/pages/show.html',{'fichier': fichier,'thematiques':thematics,'typ':typ, 'categorie': categorie, 'etiquettes':etiquettes})
 
 
 #pour la creation des fichiers pdf et txt
-def index(request):
+def creer_fichier_pdf_txt(request):
 
 	if (request.POST):
 		form = FichierForm(request.POST, request.FILES)
@@ -84,7 +90,7 @@ def index(request):
 				o.read_input_file(filename)
 				fichier.typ = "pdf"
 
-			
+
 			#o.read_input_file(filename)
 			#o.read_input_text(filename)
 			#o.read_input_file_txt(filename)
@@ -99,8 +105,8 @@ def index(request):
 				fichier.categorie = o.target_names[int(predict_cat)]
 				fichier.etiquettes = '²²²'.join(o.genererEtiquette(o.thematics))
 			fichier.contenu = o.input_data[0].strip()
-			
-			
+
+
 			fichier.save()
 
 			url = reverse('ontologia:show', kwargs={'id': fichier.id})
@@ -110,12 +116,12 @@ def index(request):
 			#return render(request,"ontologia/pages/show.html", {'id': fichier.id})
 	else:
 		form = FichierForm()
-	return render(request,"ontologia/pages/index.html", {'form': form})
+	return render(request,"ontologia/pages/index.html", {'activate':'index', 'form': form})
 
 
 
 #pour la creation des fragments de texte
-def fragment(request):
+def creer_extrait_texte(request):
 
 	if (request.POST):
 		form = FragmentTexteForm(request.POST)
@@ -128,11 +134,11 @@ def fragment(request):
 
 			fichier.document = nom + ".txt"
 
-			
+
 			fichier.type = "fragment"
 			texte = form.cleaned_data['contenu']
 			o.read_input_text(texte)
-			
+
 
 			o.predict()
 			if (len(o.thematics)==0):
@@ -140,6 +146,11 @@ def fragment(request):
 				fichier.categorie = "unknown"
 			else:
 				fichier.thematiques = '²²²'.join(o.thematics)
+
+				occurence_concept_list = [str(elt) for elt in o.occurence_concept]
+				fichier.occurence_thematiques = '²²²'.join(occurence_concept_list)
+
+				fichier.presence_thematiques = '²²²'.join(o.presence_concept_document)
 				thematiques = str(fichier.thematiques)
 				thematiques = thematiques.split('²²²')
 				etiquettes = o.genererEtiquette(thematiques)
@@ -147,8 +158,9 @@ def fragment(request):
 				fichier.categorie = o.target_names[int(predict_cat)]
 				fichier.etiquettes = '²²²'.join(etiquettes)
 			fichier.contenu = o.input_data[0].strip()
-			
-			
+			fichier.typ = "txt"
+
+
 			fichier.save()
 
 			url = reverse('ontologia:show', kwargs={'id': fichier.id})
@@ -173,3 +185,23 @@ def handler404(request):
 def handler500(request):
 	return render(request, 'ontologia/errors/500.html',{}, status=500)
 
+
+def chart_view(request):
+	
+    return render(request, 'ontologia/pages/chart.html',{"sales":100,"customers":10,})
+
+User = get_user_model()
+
+class ChartData(APIView):
+    authentication_classes = []
+    permission_classes = []
+
+    def get(self, request, format=None):
+        users_count = User.objects.all().count()
+        labels = ["users","Red", "Blue", "Yellow", "Green", "Purple", "Orange"]
+        defaultData = [users_count,5,4,3,6,3,2]
+        data = {
+            "labels":labels,
+            "defaultData":defaultData,
+        }
+        return Response(data)

@@ -6,39 +6,51 @@
 
 {% block content %}
 
+	<h1>Ajouter fichier PDF ou TXT </h1>
 
-
-
-	
-	<div class="col-md-12 panel panel-warning text-justify info" >
-		<span class = "glyphicon glyphicon-info-sign icone-info" style="font-size:15px;color:blue"></span><i></i>
-		Les PDF scannés ne sont pas bien pris en compte par la plateforme. Veuillez vous rassurer de cela pour un meilleur resultat. Pour les PDF scannés aller dans la rubrique <a href="{% url 'ontologia:fragment' %}"> Fragment de texte</a> effectuer un copier coller du contenu de votre PDF et effectuez
+	<div class="row">
+		<div class="col-md-12 panel panel-warning text-justify info" >
+			<span class = "glyphicon glyphicon-info-sign icone-info" style="font-size:15px;color:blue"></span><i></i>
+			Les PDF scannés ne sont pas bien pris en compte par la plateforme. Veuillez vous rassurer de cela pour un meilleur resultat. Pour les PDF scannés aller dans la rubrique <a href="{% url 'ontologia:creer_extrait_texte' %}"> Fragment de texte</a> effectuer un copier coller du contenu de votre PDF et effectuez
+		</div>
 	</div>
-		<div class="col-md-4 " >
-		
-		</div>
-		<div class=" col-md-4 panel panel-default panel-primary">
 
-			<div class="panel-heading">Ajouter fichier PDF ou TXT </div>
-			
-				
-				<form action="{% url 'ontologia:index' %}" enctype="multipart/form-data" method="post">
-					<div class="panel-body">
-					{% csrf_token %}
-					{{ form.as_p }}
-			
+
+
+
+		<form action="{% url 'ontologia:creer_fichier_pdf_txt' %}" enctype="multipart/form-data" method="post">
+			{% csrf_token %}
+
+			<div class="row">
+					<div class="col-md-4">
+
 					</div>
-					<input type="submit" name="submit" class="btn btn-primary" value="Creer Fichier">
-				</form>
 
-				
-		</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<label for="nom">Nom du document</label>
+							<input class="form-control" type="text" id= "nom" name="nom" placeholder="Entrer le nom" value="">
+						</div>
 
-		<div class="col-md-4 " >
-		
-		</div>
-	
-	
+						<div class="form-group">
+							<label for="nom">Selectionner document</label>
+							<input class="form-control" type="file" id= "document" name="document" >
+						</div>
+
+					</div>
+
+					<div class="col-md-4">
+
+					</div>
+
+			</div>
+
+			<input type="submit" name="submit" class="btn btn-primary" value="Creer Fichier">
+		</form>
+
+
+
+
 
 
 {% endblock %}

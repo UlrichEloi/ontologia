@@ -1,128 +1,81 @@
-/* Fonts*/
-/*@import url('https://fonts.googleapis.com/css?family=Open+Sans');
-
-
-/* Reset */
-/**{
-	margin: 0;
-	padding: 0;
+.top-bar{
+	/*background-color: #337ab7;*/
+	background-color: #0361cc;
+	padding: 3px;
 }
-*/
-/* Helpers */
-/*.wrapper {
+
+.my-menu{
+	margin-top: 10px;
+}
+.my-menu .navbar-default{
+		background: none;
+		border: none;
+
+}
+
+.my-menu .navbar-nav .active a , .my-menu .navbar-nav .active a:hover{
+		/*background-color: #337ab7;*/
+		background-color: #0361cc;
+		color: white;
+		border-radius: 60px 60px 60px 60px;
+
+}
+
+.my-menu .navbar-nav li a:hover{
+	/*background-color: #337ab7;*/
+	background-color: #0361cc;
+	color: white;
+	border-radius: 100px 100px 100px 100px;
+
+}
+.my-menu .navbar-nav li a{
+	margin-left: 3px
+}
+.logo-menu{
+	margin-top: 0px;
+	padding-bottom: 0px;
+	margin-bottom: 0px;
+}
+
+.container {
 	width: 1440px;
 	max-width: 90%;
 	margin: 0 auto;
 }
 
-.text-center {
-	text-align: center;
-}*/
+.my-menu .navbar-nav li{
+		border-radius: 60px 60px 60px 60px;
+		/*background-color: green;*/
+		padding: 0px;
+		margin: 0px;
 
-/* Main Styles */
-/*body{
-
-	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
-	background-color: #fefefe;
-
+		font-weight: bold;
+		color: #000000;
 }
 
-.navbar {
-
-	background-color: #fff;
-	height: 90px;
-	border-bottom: 4px solid #1ce;
-	padding: 1em 0;
-}
-
-.navbar .navbar-brand{
-	font-size: 1.8em;
+.concept{
+	background-color: #0361cc;
+  background-image: linear-gradient(-180deg, #0679fc 0%, #0361cc 90%);
+	/*background-color: #0077CC;*/
 	color: #fff;
-	text-decoration: none;
+	border-radius: 10px 10px 10px 10px;
+	margin-bottom: 10px;
+	display: inline-block;
+	font-size: 1em;
+	padding: 5px;
 }
 
-.navbar .navbar-brand{
-	font-size: 1.8em;
-	color: #191919;
-	text-decoration: none;
-	font-weight: bold;
-}
-
-.navbar .navbar-right{
-	float: right;
-}
-
-.navbar .navbar-right li{
-	display:inline-block;
-	list-style: none;
-	margin-top: 0.3em;
-	margin-right: 0.8em;
-}
-
-.navbar .navbar-right li:last-child{
-	margin-right: 0;
-}
-
-.navbar .navbar-right li a{
-	color: #4C4C4C;
-	text-decoration: none;
-}
-
-.navbar .navbar-right li a:hover{
-	color: #1ce;
-	
-	
-}
-
-.footer {
-	margin-top: 3em;
-	color: rgb(0,0,0,0.6);
-}
-
-.footer:before {
-	display: block;
-	content: "";
-	height: 1px;
-	background-color: #1ce;
-	width: 10%;
-	margin: 0.5em auto;
-
+.categorie{
+	color: #0361cc;
+	border-radius: 10px 10px 10px 10px;
+	margin-bottom: 10px;
+	display: inline-block;
+	font-size: 1.3em;
+	padding: 5px;
 }
 
 
-article{
-
-	background-color: #fff;
-	border: 1px solid #c5c5c5;
-	margin-bottom: 1em;
-	margin-top: 1em;
-	padding: 1em;
-	box-shadow: 1px 2px 1px rgba(0,0,0,0.3);
-}
-
-article:hover{
-
-	box-shadow: 1px 2px 20px rgba(0,0,0,0.3);
-}
-
-article .title{
-	margin-bottom: 0.5em;
-}
-
-article .title a{
-	color: #1ce;
-	text-decoration: none;
-}
-
-article .title a:hover{
-	color: #ccc;
-}
-
-article .content{
-	padding: 0.5em 0;
-}
-*/
-
+/*
 textarea {
 	width: 60%;
     height: 300px;
@@ -133,33 +86,29 @@ textarea {
     background-color: #f8f8f8;
     resize: none;
 
-}
+} */
+	/*background-color: #0077CC;*/
 
-.concept{
+/* .concept{
 
 	background-color: #0361cc;
     background-image: linear-gradient(-180deg, #0679fc 0%, #0361cc 90%);
 
-	/*background-color: #0077CC;*/
+
 	color: #fff;
 	border-radius: 10px 10px 10px 10px;
 	margin-bottom: 10px;
 	display: inline-block;
 	font-size: 1em;
 	padding: 5px;
-}
+} */
 
-.concept:hover {
-	background-color: #4CAF50; /* Green */
+/* Green */
+/* .concept:hover {
+	background-color: #4CAF50;
     color: #fff;
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
-
-/*.corps{
-	width: 1200px;
-	max-width: 1000%;
-	margin: 0 auto;
-}*/
 
 article{
 
@@ -192,11 +141,13 @@ article .title a:hover{
 
 article .content{
 	padding: 0.5em 0;
-}
+} */
 
-.categorie{
+/*background-color: #0077CC;*/
 
-	/*background-color: #0077CC;*/
+/* .categorie{
+
+
 	color: #0361cc;
 	border-radius: 10px 10px 10px 10px;
 	margin-bottom: 10px;
@@ -205,11 +156,11 @@ article .content{
 	padding: 5px;
 }
 div .info{
-	margin-top: 20px;	
+	margin-top: 20px;
 	font : 20px Montserrat, sans-serif;
 	color: #A699A6;
 }
 
 .icone-info{
 
-}
+} */

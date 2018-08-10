@@ -5,8 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
 
-<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
 <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+
+<script type="text/javascript" src="{% static 'jquery/jquery-3.3.1.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/main.js' %}"></script>
 
 	{% block head %}
 
@@ -15,20 +22,49 @@
 
 	<title>{% block title %} ONTOLOGIA {% endblock %}</title>
 </head>
-<body>
-	<div class="container-fluid">
-		{% include 'ontologia/layouts/_nav.html' %}
+<body class="container-fluid">
 
-		<div class="container">
-			{% block content %} {% endblock %}
-			{% include 'ontologia/layouts/_footer.html' %}
+
+	<div class="container-fluid top-bar">
+
+				<div class="row">
+
+			    <div class="col-md-8">
+
+			    </div>
+			    <div class="col-md-4">
+						<p class="text-right" style="color:white;">Contactez-nous <span class="glyphicon glyphicon-phone"></span>+237 676 06 94 52</p>
+			    </div>
+
+			  </div>
 		</div>
-	</div>
-	
 
-	{% block script %} 	{% endblock %}
+	<!-- create logo and menu -->
+		<div class="container-fluid logo-menu">
+				<div class="row">
+					<div class="col-md-4">
+						<img src="{% static 'images/logo.png' %}" alt="" width="350px" class="img-responsive">
+					</div>
+					<div class="col-md-8 my-menu">
+							{% block menu %} {% include 'ontologia/layouts/_nav.html' %} {% endblock %}
+					</div>
 
-	<script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
-	<script type="text/javascript" src="{% static 'jquery/jquery-3.3.1.min.js' %}"></script>
+				</div>
+
+
+		</div>
+
+			<!-- {% block banner %} {% include 'ontologia/layouts/_banner.html' %} {% endblock %} -->
+
+			<div class="container">
+				{% block content %} {% endblock %}
+
+			</div>
+
+			{% include 'ontologia/layouts/_footer.html' %}
+
+
+				{% block script %} 	{% endblock %}
+
 </body>
 </html>

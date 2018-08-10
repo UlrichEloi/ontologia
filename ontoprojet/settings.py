@@ -25,7 +25,7 @@ SECRET_KEY = ')gf8h2hoi2u_**a5lihx5(pl#8xl-f()pu(#1_u(_&f%o_oguy'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['ontologia.herokuapp.com']
+ALLOWED_HOSTS = ['ontologia.herokuapp.com','192.168.43.229','127.0.0.1']
 #192.168.43.229
 #'192.168.*','10.*','172.16.*','172.31.*'
 
@@ -38,7 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    'rest_framework',
+
+
     'ontologia.apps.OntologiaConfig',
+
 ]
 
 MIDDLEWARE = [
@@ -80,7 +85,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ontology_db',
         'USER': 'root',
-        'PASSWORD': 'Ulrich-18@',
+        'PASSWORD': '', #'Ulrich-18@',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
@@ -125,32 +130,31 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
+#
+#
+# import dj_database_url
+# db_from_env = dj_database_url.config(conn_max_age=500)
+# DATABASES['default'].update(db_from_env)
+#
+#
+# STATIC_URL = '/static'
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, "static"),
+# ]
+# STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+# STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 
-import dj_database_url
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
+STATIC_URL = '/static/'
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-STATIC_URL = '/static'
-STATICFILES_DIRS = [ 
-    os.path.join(BASE_DIR, "static"),
-]
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+STATICFILES_DIRS = (
 
+    os.path.join(BASE_DIR, 'ontologia/templates/ontologia/static'),
 
+)
 
+MEDIA_URL = "/ontologia/media/"
 
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-# STATICFILES_DIRS = (
-
-#     os.path.join(BASE_DIR, 'ontologia/templates/ontologia/static'),
-
-# )
-
-# MEDIA_URL = "/ontologia/media/"
-
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'ontologia/media/ontologia')
-
+MEDIA_ROOT = os.path.join(BASE_DIR, 'ontologia/media/ontologia')

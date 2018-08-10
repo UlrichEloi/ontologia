@@ -128,11 +128,11 @@ class Ontology:
     """
 
     ontologies = {
-        #'malaria':os.path.join(sys.path[0], "ontologia\ontologies\idomal.owl.xml"),
-        #'plant':os.path.join(sys.path[0], "ontologia\ontologies\po.owl.xml"),
-        #'diseases':os.path.join(sys.path[0], "ontologia\ontologies\doid.obo"),
+        'malaria':os.path.join(sys.path[0], "ontologia\ontologies\idomal.owl.xml"),
+        'plant':os.path.join(sys.path[0], "ontologia\ontologies\po.owl.xml"),
+        #'diseases':os.path.join(sys.path[0], "ontologia\ontologies\doid.owl.xml"),
 
-        'plant':"https://raw.githubusercontent.com/Planteome/plant-ontology/master/po.owl",
+        #'plant':"https://raw.githubusercontent.com/Planteome/plant-ontology/master/po.owl",
     }
 
 
@@ -179,6 +179,8 @@ class Ontology:
         self.ngram_nbre_word = 6
         self.ontology = []
         self.obo = ""
+        self.occurence_concept = []
+        self.presence_concept_document = []
 
 
     ########################### methodes d'instance ############################
@@ -200,7 +202,7 @@ class Ontology:
             self.target_names.append(name)
             self.number_ontologies += 1
             self.get_classes_ontology(onto)
-            #self.obo = onto.get_namespace("http://purl.obolibrary.org/obo/")
+            self.obo = onto.get_namespace("http://purl.obolibrary.org/obo/")
         self.cleaning_corpus()
         self.train_and_classify()
 
@@ -224,6 +226,11 @@ class Ontology:
                 index += 1
         self.ind_cat.append(index)
 
+        #gerer le nombre d'occurence des concepts
+        #self.occurence_concept = [0 for element in self.concepts]
+
+        #gerer les differentes forme de presence du concepts dans le texte
+        #self.presence_concept_document = ["" for element in self.concepts]
 
     # pretraiter les données de l'ontologie
     def cleaning_corpus(self):
@@ -394,6 +401,17 @@ class Ontology:
                             self.thematic.append(ca)
                             self.thematics.append(self.concepts[kk] + self.pattern + ca)
                             counter_cat += 1
+                            self.occurence_concept.append(1)
+                            self.presence_concept_document.append(ca)
+                        else:
+                            index_ca = self.thematic.index(ca)
+                            occ = int(self.occurence_concept[index_ca]) + 1
+                            self.occurence_concept[index_ca] = occ
+                            presence = ", " + ca
+
+                            pres_old = self.presence_concept_document[index_ca]
+                            pres_old = pres_old + presence
+                            self.presence_concept_document[index_ca] = pres_old
                     kk = kk + 1
                 kk = preced
 

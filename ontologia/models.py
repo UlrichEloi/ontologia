@@ -12,13 +12,13 @@ def upload_location(instance,filename):
 
 class TimestampModel(models.Model):
 	"""docstring for TimestamtedModel"""
-	
+
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
 
 	class Meta:
 		abstract = True
-		
+
 
 class Fichier(TimestampModel):
 	"""docstring for Fichier"""
@@ -28,6 +28,8 @@ class Fichier(TimestampModel):
 	categorie = models.CharField(max_length=100)
 	contenu = models.TextField()
 	thematiques = models.TextField()
+	occurence_thematiques = models.TextField(default = "",null=True)
+	presence_thematiques = models.TextField(default = "",null=True)
 	document = models.FileField(upload_to = upload_location,null=True,blank=True,validators=[validate_file_extension])
 	etiquettes = models.TextField()
 
@@ -41,7 +43,7 @@ class Fichier(TimestampModel):
 		if (len(self.thematiques)> 0):
 			them = self.thematiques.split("²²²")
 			if ( len(them) > 0):
-				
+
 				for th in them:
 					ch = th.split("~~~")
 					if ( len(ch) >= 1):
