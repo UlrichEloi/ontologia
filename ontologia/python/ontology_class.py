@@ -20,7 +20,7 @@ import re
 
 #import for natural language toolkit
 import nltk
-nltk.download('stopwords')
+#nltk.download('stopwords')
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
 
