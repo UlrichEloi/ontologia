@@ -20,7 +20,7 @@ import re
 
 #import for natural language toolkit
 import nltk
-#nltk.download('stopwords')
+nltk.download('stopwords')
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
 
@@ -128,9 +128,12 @@ class Ontology:
     """
 
     ontologies = {
+        #emplacement (url) des ontologies sur mon pc (serveur local)
         # 'malaria':os.path.join(sys.path[0], "ontologia\ontologies\idomal.owl.xml"),
         # 'plant':os.path.join(sys.path[0], "ontologia\ontologies\po.owl.xml"),
         #'diseases':os.path.join(sys.path[0], "ontologia\ontologies\doid.owl.xml"),
+
+        #emplacement(url) des ontologies a distance(sur le serveur distant d' heroku)
         'malaria':"ontologia/ontologies/idomal.owl.xml",
         'plant':"ontologia/ontologies/po.owl.xml",
         #'diseases':os.path.join(sys.path[0], "ontologia\ontologies\doid.owl.xml"),
