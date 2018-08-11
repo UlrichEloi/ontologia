@@ -131,8 +131,8 @@ class Ontology:
         # 'malaria':os.path.join(sys.path[0], "ontologia\ontologies\idomal.owl.xml"),
         # 'plant':os.path.join(sys.path[0], "ontologia\ontologies\po.owl.xml"),
         #'diseases':os.path.join(sys.path[0], "ontologia\ontologies\doid.owl.xml"),
-        'malaria':os.path.join(sys.path[0], "ontologia/ontologies/idomal.owl.xml"),
-        'plant':os.path.join(sys.path[0], "ontologia/ontologies/po.owl.xml"),
+        'malaria':"ontologia/ontologies/idomal.owl.xml",
+        'plant':"ontologia/ontologies/po.owl.xml",
         #'diseases':os.path.join(sys.path[0], "ontologia\ontologies\doid.owl.xml"),
 
         #'plant':"https://raw.githubusercontent.com/Planteome/plant-ontology/master/po.owl",
