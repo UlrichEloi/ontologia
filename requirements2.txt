@@ -14,7 +14,7 @@ colorama==0.3.9
 cryptography==2.2.1
 Cython==0.28.2
 decorator==4.2.1
-Django==2.0.2
+Django==2.2.10
 docutils==0.14
 docx2txt==0.6
 EbookLib==0.15
